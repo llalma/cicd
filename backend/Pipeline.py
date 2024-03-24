@@ -1,11 +1,14 @@
 from typing import Callable
 from Stage import Stage 
+from SecretFilter import SecretFilter
+
+import sys
 
 class Pipeline:
     def __init__(self):
         self.stages = []
         self.stage_count = 0
-
+        
     """Add stage to pipeline. Currently missing way to pass variables between stages"""
     def create_stage(self, func: Callable, stage_opts:dict() = {}):
         
@@ -25,9 +28,13 @@ class Pipeline:
     def run(self, *args) -> tuple():
         for stage in self.stages:
             args = stage.run(*args)
-            
+                
             if not isinstance(args, tuple):
                 args = (args, )
         
         return args
+    
+    def get_logs(self):
+        print(sys.stdout.get)
+        return ""
 

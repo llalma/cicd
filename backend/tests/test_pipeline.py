@@ -37,3 +37,5 @@ def test_return_pipeline(input: int, loop_count: int, expected: int):
     
     pipeline.run(input)
     assert (expected,) == pipeline.run(input)
+
+
