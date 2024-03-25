@@ -9,6 +9,9 @@ class Pipeline:
         self.stages = []
         self.stage_count = 0
         
+        self.upstream_triggers = []
+        self.downstream_triggers = []
+
     """Add stage to pipeline. Currently missing way to pass variables between stages"""
     def create_stage(self, func: Callable, stage_opts:dict() = {}):
         

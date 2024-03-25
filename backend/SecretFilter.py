@@ -1,6 +1,4 @@
 import re
-
-import os
 import sys
 
 class SecretFilter(object):
@@ -17,7 +15,7 @@ class SecretFilter(object):
     def flush(self):
         self.stream.flush()
 
-class mask_secrets:
+class MaskSecrets:
     def __init__(self, secrets: [str]):
         if not isinstance(secrets, list):
             secrets = [secrets]

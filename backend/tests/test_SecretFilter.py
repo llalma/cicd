@@ -1,4 +1,4 @@
-from SecretFilter import mask_secrets
+from SecretFilter import MaskSecrets
 
 import pytest
 from io import StringIO
@@ -12,7 +12,7 @@ def test_mask_stdout(input_str: str, secrets: [str], expected:str):
     try:
         sys.stdout = mystdout = StringIO()
 
-        with mask_secrets(secrets):
+        with MaskSecrets(secrets):
             print(input_str)
         
         logs = mystdout.getvalue()
@@ -31,7 +31,7 @@ def test_mask_stderr(input_str: str, secrets: [str], expected:str):
     try:
         sys.stderr = mystderr = StringIO()
 
-        with mask_secrets(secrets):
+        with MaskSecrets(secrets):
             print(input_str, file=sys.stderr)
 
         logs = mystderr.getvalue()
