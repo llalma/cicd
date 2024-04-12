@@ -1,0 +1,16 @@
+[package]
+name = "cicd"
+version = "0.0.1"
+authors = ["liam.hulsmanbenson@gmail.com"]
+edition="2021"
+
+[dependencies]
+axum = "0.7.5"
+tokio = { version = "1.37.0", features = ["full"] }
+tower = "0.4.13"
+config = "0.14.0"
+redis = "0.25.3"
+lazy_static="*"
+serde="*"
+serde_json="*"
+uuid={ version="*", features=[ "v4"]}

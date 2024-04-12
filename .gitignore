@@ -1,3 +1,5 @@
 backend/__pycache__
 backend/tests/__pycache__
 backend/test.py
+dispatcher/target
+redis/dump.rdb
