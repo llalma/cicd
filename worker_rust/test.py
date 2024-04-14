@@ -1,6 +1,16 @@
 import CICD_TBD
 
 
-x = CICD_TBD.Pipeline(["hi", "Liam"])
+@CICD_TBD.stage_wrapper
+def func():
+    print("in func")
 
-x.test_func()
+
+def func2():
+    print("in func2")
+
+
+with CICD_TBD.withfunc("stage 1") as stage:
+    print(stage.name)
+
+func()
