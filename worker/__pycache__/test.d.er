@@ -1,0 +1,4 @@
+##[pylyzer] failed /home/llalma/Documents/Projects/cicd/backend/test.py 1711254257 32
+.___v_desugar_1 = pyimport "main"
+.test: Never
+

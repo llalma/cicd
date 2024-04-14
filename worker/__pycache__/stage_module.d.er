@@ -1,0 +1,7 @@
+##[pylyzer] failed /home/llalma/Documents/Projects/cicd/backend/stage_module.py 1711254730 238
+.Type_pipeline: ClassType
+.Type_pipeline.stages: Never
+.Type_pipeline.__call__: (stages: Obj) -> .Type_pipeline
+.Type_pipeline.add_stage: (self: .Type_pipeline, func: Obj) -> Never
+.Type_pipeline.print_stages: (self: .Type_pipeline) -> NoneType
+
