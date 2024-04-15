@@ -3,3 +3,4 @@ backend/tests/__pycache__
 backend/test.py
 dispatcher/target
 redis/dump.rdb
+worker_rust/target
