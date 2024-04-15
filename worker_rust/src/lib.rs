@@ -6,6 +6,7 @@ use config::Config;
 use lazy_static::lazy_static;
 use redis::{Client, Commands};
 use std::sync::RwLock;
+use uuid::Uuid;
 
 // Global Configs
 lazy_static! {
@@ -18,6 +19,7 @@ lazy_static! {
     );
 }
 
+// Global DB connection
 lazy_static! {
     static ref REDIS: RwLock<Client> = RwLock::new(
         redis::Client::open(format!(
@@ -31,6 +33,12 @@ lazy_static! {
         ))
         .unwrap()
     );
+}
+
+// Global pipeline reference id - (This is assuming multiple pipelines cannot be made in 1 python
+// file)
+lazy_static! {
+    static ref PIPELINE_ID: RwLock<String> = RwLock::new(Uuid::new_v4().to_string());
 }
 
 #[pymodule]

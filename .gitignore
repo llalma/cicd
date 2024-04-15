@@ -4,3 +4,5 @@ backend/test.py
 dispatcher/target
 redis/dump.rdb
 worker_rust/target
+worker_rust/.venv
+worker_rust/target
