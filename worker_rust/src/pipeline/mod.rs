@@ -1,13 +1,12 @@
 use pyo3::prelude::*;
 use pyo3::Python;
 
-use crate::pipeline::databaseEntry::entry_pipeline;
 use chrono::{DateTime, Utc};
 use redis::Commands;
 
 #[path = "../databaseEntry/mod.rs"]
-// use crate::databaseEntry::entry_pipeline;
 mod databaseEntry;
+use crate::pipeline::databaseEntry::entry_pipeline;
 
 #[pyclass(get_all)]
 pub struct Pipeline {

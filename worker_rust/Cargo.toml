@@ -27,6 +27,6 @@ config = "0.14.0"
 redis = "0.25.3"
 lazy_static="*"
 uuid={ version="*", features=[ "v4"]}
-serde="*"
+serde={version="*", features=["derive"]}
 serde_json="*"
 
