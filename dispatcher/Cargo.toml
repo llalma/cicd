@@ -14,3 +14,6 @@ lazy_static="*"
 serde="*"
 serde_json="*"
 uuid={ version="*", features=[ "v4"]}
+reqwest = { version = "0.11", features = ["json"] }
+
+

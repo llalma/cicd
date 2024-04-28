@@ -1,14 +1,12 @@
-//! 
+//!
 
+use lazy_static::lazy_static;
 use redis::{Client, Commands};
 use std::sync::RwLock;
-use lazy_static::lazy_static;
 use uuid::Uuid;
 
 use crate::SETTINGS;
-
-use axum::extract::Json;
-use serde::{Deserialize, Serialize};
+use std::collections::HashMap;
 
 // Global REDIS
 lazy_static! {
@@ -16,35 +14,44 @@ lazy_static! {
         redis::Client::open(format!(
             "redis://{}:{}",
             SETTINGS.read().unwrap().get::<String>("REDIS_IP").unwrap(),
-            SETTINGS.read().unwrap().get::<String>("REDIS_PORT").unwrap(),
+            SETTINGS
+                .read()
+                .unwrap()
+                .get::<String>("REDIS_PORT")
+                .unwrap(),
         ))
         .unwrap()
     );
+    static ref POST_CLIENT: RwLock<reqwest::Client> = RwLock::new(reqwest::Client::new());
 }
 
-
-// #[derive(Deserialize, Serialize)]
-// pub struct Job {
-//     id: String,
-//     trigger: String,
-//     commit: String
-// }
-
-/// Enqueue a json object to Redis for later use
-// pub async fn enqueue(Json(payload): Json<Job>){
-pub async fn enqueue(payload: String){
-    
+pub async fn enqueue(payload: String) {
     // Get the redis connection
     let mut conn = REDIS.read().unwrap().get_connection().unwrap();
-    // conn.set(Uuid::new_v4().to_string(), serde_json::to_string(&payload).unwrap()).unwrap();
-    let _: () = conn.set(Uuid::new_v4().to_string(), &payload).unwrap();
+
+    // Create an ID for job
+    let job_id = Uuid::new_v4().to_string();
+
+    let _: () = conn.set(&job_id, &payload).unwrap();
 
     // Trigger worker
-    trigger_worker();
+    trigger_worker(job_id);
 }
 
+async fn trigger_worker(job_id: String) {
+    let endpoint: String = SETTINGS
+        .read()
+        .unwrap()
+        .get::<String>("WORKER_ENDPOINT")
+        .unwrap();
 
-async fn trigger_worker(){
-    
+    let body = HashMap::from([("id", job_id)]);
+
+    let _ = POST_CLIENT
+        .read()
+        .unwrap()
+        .post(endpoint)
+        .json(&body)
+        .send()
+        .await;
 }
-

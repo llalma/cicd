@@ -6,3 +6,6 @@ redis/dump.rdb
 worker_rust/target
 worker_rust/.venv
 worker_rust/target
+worker_rust/.ven
+worker_rust/target
+worker_rust/target
