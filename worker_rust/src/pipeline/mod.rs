@@ -29,6 +29,15 @@ impl Pipeline {
     }
 
     fn __enter__<'p>(slf: PyRef<'p, Self>, _py: Python<'p>) -> PyResult<PyRef<'p, Self>> {
+        println!(
+            "{}",
+            crate::SETTINGS
+                .read()
+                .unwrap()
+                .get::<String>("REDIS_IP")
+                .unwrap()
+        );
+
         println!("__enter__ pipeline");
         println!("{}", &slf.id);
         // Create a database entry for the pipeline

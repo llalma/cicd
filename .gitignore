@@ -9,3 +9,7 @@ worker_rust/target
 worker_rust/.ven
 worker_rust/target
 worker_rust/target
+pipeline/terraform/.terraform/providers/registry.terraform.io/hashicorp
+pipeline/terraform/.terraform.lock.hcl
+pipeline/terraform/terraform.tfstate
+pipeline/terraform/terraform.tfstate.backup
