@@ -25,7 +25,7 @@ resource "aws_iam_role" "iam_for_lambda" {
 data "archive_file" "lambda" {
   type        = "zip"
   source_dir  = "lambda_function"
-  output_path = "/tmp/CICD_test/lambda_function.zip"
+  output_path = "/tmp/${local.repo}/lambda_function.zip"
 }
 
 ###
@@ -33,7 +33,7 @@ data "archive_file" "lambda" {
 ###
 resource "aws_lambda_function" "test_lambda" {
 
-  function_name = "CICD_Pipeline"
+  function_name = local.function_name
   runtime       = "python3.11"
 
   # Stuff related to the actual python code
@@ -45,10 +45,20 @@ resource "aws_lambda_function" "test_lambda" {
 
   layers = [aws_lambda_layer_version.layer.arn]
 
+  timeout = 30
+
   environment {
     variables = {
       CICD_REDIS_IP   = "1.1.1.1"
       CICD_REDIS_PORT = "1234"
     }
   }
+}
+
+###
+# Create lambda endpoint
+###
+resource "aws_lambda_function_url" "endpoint" {
+  function_name      = aws_lambda_function.test_lambda.function_name
+  authorization_type = "NONE"
 }
